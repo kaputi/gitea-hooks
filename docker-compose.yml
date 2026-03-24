@@ -1,0 +1,14 @@
+services:
+  gitea-hooks:
+    build: .
+    ports:
+      - "${HOST_PORT:-8080}:${PORT:-8080}"
+    env_file:
+      - .env
+    volumes:
+      - ${SSH_KEY_HOST_PATH:-~/.ssh/id_ed25519}:/secrets/id_ed25519:ro
+      - reviews:${CLONE_BASE_PATH:-/data/reviews}
+      - ${CLAUDE_CONFIG_PATH:-~/.claude}:/root/.claude:ro
+
+volumes:
+  reviews:
