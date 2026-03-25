@@ -10,5 +10,10 @@ services:
       - reviews:${CLONE_BASE_PATH:-/data/reviews}
       - ${CLAUDE_CONFIG_PATH:-~/.claude}:/root/.claude:ro
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token ${CF_TOKEN}
+    restart: unless-stopped
+
 volumes:
   reviews:
