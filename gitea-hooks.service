@@ -1,0 +1,23 @@
+[Unit]                                                                                                                                                                                                            
+Description=Gitea Hooks PR Reviewer
+After=network.target                                                                                                                                                                                              
+
+[Service]
+Type=simple
+User=gitea-hooks
+Group=gitea-hooks
+WorkingDirectory=/var/lib/gitea-hooks                                                                                                                                                                             
+EnvironmentFile=/etc/gitea-hooks/env
+ExecStart=/usr/local/bin/gitea-hooks                                                                                                                                                                              
+Restart=always
+RestartSec=5
+
+# Hardening
+NoNewPrivileges=yes                                                                                                                                                                                               
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/gitea-hooks/reviews
+PrivateTmp=yes                                                                                                                                                                                                    
+
+[Install]                                                                                                                                                                                                         
+WantedBy=multi-user.target
